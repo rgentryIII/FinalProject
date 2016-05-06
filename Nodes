@@ -1,0 +1,12 @@
+Node Private_IP
+Master 172.31.13.224
+Worker1 172.31.13.227
+Worker2 172.31.13.225
+Worker3 172.31.13.228
+Worker4 172.31.13.226
+Worker5 172.31.13.220
+Worker6 172.31.13.235
+Worker7 172.31.13.236
+Worker8 172.31.13.221
+Worker9 172.31.13.218
+Worker10 172.31.13.219
