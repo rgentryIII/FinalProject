@@ -37,7 +37,7 @@ def getGraph():
 
 
 
-#makes a Queue of segments starting from node
+#makes a Queue of segments starting from the first node and extending n edges away in each direction -> will return 2n+1 length segs
 #the reason we specify the middle and work out in both directions is that if you specify (0,1,2) and (0,3,4) as start
 #points, you will end up examining (0,1,2...,4,3) and (0,3,4....2,1) which are isomorphic. However, if you say (4,3,0,1,2)
 #and get rid of (2,1,0,3,4) then without loss of generality all subproblems will be non-overlapping.
