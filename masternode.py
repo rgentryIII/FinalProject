@@ -1,5 +1,5 @@
 #!/usr/local/bin/python
-mport xmlrpclib, sys, networkx as nx, threading
+import xmlrpclib, sys, networkx as nx, threading
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from .servernode importservernode
 from .clientnode importclientnode
