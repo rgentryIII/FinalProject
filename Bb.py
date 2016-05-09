@@ -17,6 +17,7 @@ def randomGraph(n):
             G.add_edge(j,i,weight = w);
     return G;
 
+
 #creates graph with nodes at positions pos and returns metric graph over those positions, and the pos
 def randomMetricGraph(n):
     G = nx.Graph();
@@ -59,7 +60,8 @@ def lowerBound(G, path):
     out = pathWeight(G,path);
     sum = 0;
     for i in range(0,n):
-        *head, tail = path;
+        pathLen= len(path);
+        head, tail = path[0:pathLen-1], path[pathLen-1:];
         if not i in path or i == tail:
             min1 = infinity;
             min2 = infinity;
@@ -103,7 +105,38 @@ def minTour(G):
 
     return out;
 
-G,pos = randomMetricGraph(15);
+
+
+#the main algorithm- start cannot be None
+def minTour(G, start):
+    stack = [];
+    n = G.number_of_nodes();
+    stack.append(start);
+    bound = lowerBound(G,start);
+    out = None;
+    while len(stack)>0:
+        path = stack.pop();
+        lower = lowerBound(G,path);
+        if lower < bound:
+            if len(path) == n:
+                print("complete tour found");
+                print(lower);
+                bound = lower;
+                #if this beat the bound and is a full tour, this is our best complete solution yet
+                out = path;
+            else:
+                #add all child paths to stack
+                for i in range(0,n):
+                    if not i in path:
+                        child = path+[i];
+                        stack.append(child);
+
+    return out;
+
+
+
+G,pos = randomMetricGraph(10);
+
 tour = minTour(G);
 print(tour);
 
@@ -122,5 +155,5 @@ for e in G.edges():
 
 
 nx.draw(G, pos=  pos,edge_color=colors, with_labels=True);
-
+#can save with something like nx.save
 plt.show();
