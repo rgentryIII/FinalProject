@@ -1,5 +1,5 @@
 #need this import
-from ast import literal_eval as make_tuple;
+from ast import literal_eval;
 
 
 import  networkx as nx;
@@ -33,7 +33,8 @@ def graphToString(G):
     for v in undirG.nodes():
         out+="v:"+str(v)+"\n";
     for e in undirG.edges():
-        out+= "e:"+str(e)+"\n";
+        attr = G.get_edge_data(e[0],e[1]);
+        out+= "e:"+str(e)+"\t"+str(attr)+"\n";
     return out;
 
 def stringToGraph(S):
@@ -41,10 +42,15 @@ def stringToGraph(S):
     out = G.to_undirected();
     for line in S.split("\n"):
         if line[:2] == "v:":
-            out.add_node(line[2:].strip("\n"));
+            out.add_node(literal_eval(line[2:].strip("\n")));
         if line[:2] == "e:":
-            tuple = make_tuple(line[2:].strip("\n"));
-            out.add_edge(tuple[0],tuple[1]);
+            print(line);
+            trimmed = line[2:].strip("\n");
+            split = trimmed.split("\t");
+            tuple = literal_eval(split[0]);
+            dict = literal_eval(split[1]);
+            out.add_edge(tuple[0],tuple[1],dict);
+
     return out;
 
 
@@ -58,6 +64,12 @@ print(len(G.edges()));
 print(len(G2.edges()));
 print(G.edges());
 print(G2.edges());
+
+print(len(G.nodes()));
+print(len(G2.nodes()));
+print(G.nodes());
+print(G2.nodes());
+
 
 print("assert no missing original in new:");
 for e in G.edges():
